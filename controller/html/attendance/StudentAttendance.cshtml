@@ -1,0 +1,21 @@
+﻿@model IEnumerable<StudentManagementSystem.Models.Attendance>
+
+<h2>Student Attendance</h2>
+
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.Date.ToShortDateString()</td>
+            <td>@(a.IsPresent ? "Present" : "Absent")</td>
+        </tr>
+    }
+</table>
+
+<br />
+<a href="/Student/Index">Back to Student List</a>

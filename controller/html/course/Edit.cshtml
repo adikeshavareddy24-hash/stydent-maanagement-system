@@ -1,0 +1,18 @@
+﻿@model StudentManagementSystem.Models.Course
+
+<h2>Edit Course</h2>
+
+<form method="post" action="/Course/Edit">
+    @Html.HiddenFor(m => m.CourseId)
+
+    <label>Course Name</label><br />
+    @Html.TextBoxFor(m => m.CourseName, new { required = "required" })<br /><br />
+
+    <label>Description</label><br />
+    @Html.TextAreaFor(m => m.Description)<br /><br />
+
+    <label>Duration (Weeks)</label><br />
+    @Html.TextBoxFor(m => m.DurationWeeks, new { type = "number", required = "required" })<br /><br />
+
+    <input type="submit" value="Update" />
+</form>

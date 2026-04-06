@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Admin Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Admin (One Time Only)</h2>
+
+<form method="post">
+    <label>Username</label><br />
+    <input type="text" name="Username" required /><br /><br />
+
+    <label>Password</label><br />
+    <input type="password" name="Password" required /><br /><br />
+
+    <input type="submit" value="Create Admin" />
+</form>

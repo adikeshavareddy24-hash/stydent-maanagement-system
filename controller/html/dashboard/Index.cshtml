@@ -1,0 +1,91 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Dashboard</h2>
+
+    <!-- Welcome Section -->
+    <div class="alert alert-info d-flex justify-content-between align-items-center">
+        <div>
+            <strong>Welcome, @ViewBag.Username</strong><br />
+            Role: <strong>@Session["Role"]</strong>
+        </div>
+        <a href="/Account/Logout" class="btn btn-danger btn-sm">Logout</a>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mt-3">
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Students</h5>
+                    <h3 class="text-primary">@ViewBag.TotalStudents</h3>
+                    <a href="/Student/Index" class="btn btn-outline-primary btn-sm mt-2">
+                        View Students
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Courses</h5>
+                    <h3 class="text-success">@ViewBag.TotalCourses</h3>
+                    <a href="/Course/Index" class="btn btn-outline-success btn-sm mt-2">
+                        View Courses
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm border-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Enrollments</h5>
+                    <a href="/Enrollment/Index" class="btn btn-outline-warning btn-sm mt-2">
+                        Manage Enrollments
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Attendance Section -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-body text-center">
+            <h5 class="card-title">Attendance Management</h5>
+            <a href="/Attendance/Mark" class="btn btn-primary btn-sm me-2">
+                Mark Attendance
+            </a>
+            <a href="/Attendance/Report" class="btn btn-secondary btn-sm">
+                View Attendance
+            </a>
+        </div>
+    </div>
+
+    <!-- Student Profile Section -->
+    @if (Session["Role"]?.ToString() == "Student")
+    {
+        <div class="card mt-4 shadow-sm border-info">
+            <div class="card-body text-center">
+                <h5 class="card-title">Profile</h5>
+                <a href="/Student/Edit/@Session["StudentId"]" class="btn btn-info btn-sm">
+                    Complete / Edit Profile
+                </a>
+                <br />
+                <a href="@Url.Action("Report","Attendance")"
+                   class="btn btn-dark btn-sm">
+                    View Attendance
+                </a>
+
+            </div>
+        </div>
+    }
+
+</div>

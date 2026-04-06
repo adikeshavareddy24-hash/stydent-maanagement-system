@@ -1,0 +1,98 @@
+﻿    @model IEnumerable<StudentManagementSystem.Models.Attendance>
+
+    @{
+        ViewBag.Title = "Attendance Report";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <div class="container mt-4">
+
+        <div class="card shadow p-4">
+            <h3 class="text-center text-primary mb-4">Attendance Report</h3>
+
+            <table class="table table-bordered table-hover text-center align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Student</th>
+                        <th>Course</th>   <!-- ✅ Added -->
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            <td>@a.Student.Name</td>
+                            <td>@a.Course.CourseName</td>  <!-- ✅ Show Course -->
+                            <td>@a.Date.ToString("dd-MM-yyyy")</td>
+                            <td>
+                                <span class="badge @(a.IsPresent ? "bg-success" : "bg-danger")">
+                                    @(a.IsPresent ? "Present" : "Absent")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (ViewBag.OverallPercentage != null)
+            {
+                <hr />
+                <div class="text-center mt-3 mb-3">
+                    <h4>
+                        Overall Attendance :
+                        <span style="color:@(ViewBag.OverallPercentage < 75 ? "red" : "green")">
+                            @Math.Round(ViewBag.OverallPercentage, 2)%
+                        </span>
+                    </h4>
+                </div>
+            }
+
+            <!-- Course-wise Percentage Section -->
+            @if (ViewBag.CourseWise != null)
+            {
+                <hr />
+
+                <h4 class="text-center text-success mt-4">
+                    Course-wise Attendance Percentage
+                </h4>
+
+                <table class="table table-bordered text-center">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Course</th>
+                            <th>Total Classes</th>
+                            <th>Present</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (List<StudentManagementSystem.Models.CourseAttendanceVM>)ViewBag.CourseWise)
+
+                        {
+                            <tr>
+                                <td>@item.Course</td>
+                                <td>@item.Total</td>
+                                <td>@item.Present</td>
+                                <td>
+                                    <span class="fw-bold"
+                                          style="color:@(item.Percentage < 75 ? "red" : "green")">
+                                        @Math.Round(item.Percentage, 2)%
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <div class="text-center mt-3">
+                <a href="@Url.Action("Index","Dashboard")"
+                   class="btn btn-secondary btn-sm">
+                    ← Back to Dashboard
+                </a>
+            </div>
+
+        </div>
+
+    </div>
